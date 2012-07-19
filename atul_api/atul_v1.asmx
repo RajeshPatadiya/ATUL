@@ -1,0 +1,1 @@
+﻿<%@ WebService Language="C#" CodeBehind="atul_v1.asmx.cs" Class="ATUL_v1.ATUL" %>

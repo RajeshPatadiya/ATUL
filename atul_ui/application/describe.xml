@@ -1,0 +1,35 @@
+<endpoint>
+  <provider>
+    <classid>1</classid>
+    <name>Stock ServiceDesk Provider</name>
+    <description>Creates Service Desk Tickets</description>
+	<verb>TICKET</verb>
+    <parameter>requestarea</parameter>
+    <parameter>group</parameter>
+    <parameter>text</parameter>
+  </provider>
+  <provider>
+    <classid>1</classid>
+    <name>Stock Email Provider</name>
+	<description>Sends Emails</description>
+    <verb>EMAIL</verb>
+    <parameter>recipients</parameter>
+    <parameter>subject</parameter>
+    <parameter>body</parameter>
+  </provider>
+  <provider>
+    <classid>2</classid>
+    <name>Stock Automation Provider</name>
+	<description>Represents dummy automation provider</description>
+    <verb>AUTOMATION</verb>
+    <parameter>serverxml</parameter>
+  </provider>
+  <provider>
+    <classid>3</classid>
+    <name>Stock Subject Provider</name>
+	<description>Represents dummy subject provider</description>
+    <verb>SUBJECT</verb>
+    <parameter>identifier</parameter>
+  </provider>
+</endpoint>
+

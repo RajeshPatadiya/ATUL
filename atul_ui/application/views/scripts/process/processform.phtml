@@ -1,0 +1,82 @@
+<!-- Copyright (c) <2012>, <Go Daddy Operating Company, LLC>
+All rights reserved.
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+    Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+    Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ -->
+<form id="processForm" title="Edit Process">
+		<div id="processInfoAccordion" class="accordion">
+			<h3><a>Process Settings</a></h3>
+			<div>
+			<fieldset>
+					<label for="processSummary">Summary:<span class="helptext" title="<?php echo Atul_Utility::indexNotSetEmptyString($this->helpText,'processNameHelp'); ?>" id="processNameHelp"></span>
+						<input type="text" id="processSummary" name="processSummary" value="<?php echo $this->process->ProcessSummary;?>" class="input longinput" title="<?php echo Atul_Utility::indexNotSetEmptyString($this->helpText,'processNameHelp'); ?>"/>
+					</label>
+					<label for="processDescription">Description:
+						<textarea id="processDescription" name="processDescription" class="input"><?php echo $this->process->ProcessDescription;?></textarea>
+					</label>
+					<label for="processStatus">Status:<span class="helptext" title="<?php echo Atul_Utility::indexNotSetEmptyString($this->helpText,'processStatusHelp'); ?>"></span>
+						<select id="processStatus" name="processStatus" class="input" title="<?php echo Atul_Utility::indexNotSetEmptyString($this->helpText,'processStatusHelp'); ?>">
+						<?php foreach ($this->statusList as $status):?>
+							<option value="<?php echo $status->AtulProcessStatusID;?>"
+								<?php if ($status->AtulProcessStatusID == $this->process->AtulProcessStatusID): ?>" selected="selected"<?php endif; ?>>
+								<?php echo $status->ProcessStatus;?>
+							</option>
+						<?php endforeach;?>
+						</select>
+					</label>
+					<label for="processDeadline">Deadline (in min.):<span class="helptext" title="<?php echo Atul_Utility::indexNotSetEmptyString($this->helpText,'processDeadlineHelp'); ?>"></span>
+						<input type="text" id="processDeadline" name="processDeadline" value="<?php echo $this->process->DeadLineOffset;?>" class="input number" title="<?php echo Atul_Utility::indexNotSetEmptyString($this->helpText,'processDeadlineHelp'); ?>"/>
+					</label>
+				</fieldset>
+				<input type="hidden" id="processId" name="processId" value="<?php echo $this->process->AtulProcessID;?>" />
+			</div>
+			<h3><a>Set a Subject Provider</a></h3>
+			<div id="providerSelectContainer">
+				<fieldset>
+					<label for="provider" class="providerlist" >Provider:
+						<select id="provider">
+							<option value="" title="" class="input">--</option>
+							<?php
+								$selected="";
+								foreach ($this->providers as $p) :
+									if($p->AtulServiceProviderClassID == 1):	
+										if($p->AtulServiceProviderID === $this->process->SubjectServiceProviderID):
+											$selected = "selected";
+											$providerScopeIdentifier = $this->process->SubjectScopeIdentifier;
+										endif;
+										?>				
+					  					<option value="<?php print $p->AtulServiceProviderID;?>" title="<?php print $p->ServiceProviderDescription; ?>" class="input" <?php echo $selected?> classid="1"><?php print $p->ServiceProviderDescription;?></option>
+										<?php
+										$selected = "";
+									endif;
+								endforeach;
+							?>
+						</select>
+					</label>
+					<br />
+					<label for="providerScope" class="providerlist" >Provider Scope:
+						<select id="providerScope">
+							<option value="0" title="" class="input" selected>--</option>
+							<?php if(trim($providerScopeIdentifier) != ''): ?>
+								<option value="<?php echo $providerScopeIdentifier; ?>" title="" class="input" selected>...loading</option>
+							<?php endif; ?>
+						</select>
+					</label>
+				</fieldset>
+			</div>
+			<h3><a href="#">Import a New Subject Provider</a></h3>
+			<div>				
+				<div id="newSubjectProvider">					
+						<?php echo $this->getProvidersFromEndpoint('processInfoAccordion');?>		
+				</div>				
+			</div>
+		</div>
+	<input type="hidden" id="classid" name="" value="1">
+	<input type="hidden" id="proid" name="" value="<?php echo $this -> process -> SubjectServiceProviderID;?>">
+	<input type="hidden" id="processId" name="processId" value="<?php echo $this -> process -> AtulProcessID;?>" />
+	<input type="hidden" id="processowner" name="processowner" value="<?php echo $this->process->OwnedBy; ?>" />
+</form>

@@ -1,0 +1,299 @@
+<!-- Copyright (c) <2012>, <Go Daddy Operating Company, LLC>
+All rights reserved.
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+    Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+    Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ -->
+<?php
+if (is_object($this -> instancejson)) :
+$instanceTitle = AtulPim::GetInstanceToolTip($this -> instancejson, $this -> UTCOffset);
+$currentSubProcess = ServiceManager_Instance::GetCurrentInstanceSubProcess($this -> pid);
+
+?>
+<div class="instancecontainer">
+<div class="instance" id="processInfo" instanceId="<?php echo $this -> pid; ?>" instancedate="<?php echo Atul_Utility::AtulDate($this -> instancejson -> Instance -> atultblInstanceProcess -> CreatedDate, true, $this -> UTCOffset); ?>">
+<h3 class="head done stepDesc" id="instancetitle" title="<?php echo $instanceTitle; ?>"><?php print $this -> instancejson -> Instance -> Process -> ProcessSummary; ?></h3>
+<div class="tooltip"></div>
+<div class="instancedetail ui-widget-content" >
+<li class="instancecolumn">
+Status:
+<br />
+<small> <?php print $this -> instancejson -> Instance -> atultblInstanceProcess -> ProcessStatus; ?></small>
+</li>
+<li class="instancecolumn">
+Owner:
+<br />
+<small> <?php print $this -> instancejson -> Instance -> atultblInstanceProcess -> OwnedByName; ?></small>
+</li>
+<li class="instancecolumn">
+Description:
+<br />
+<small> <?php print $this -> instancejson -> Instance -> Process -> ProcessDescription; ?></small>
+</li>
+<li class="instancecolumn">
+Subject:
+<br />
+<small><span id="instanceSubject"><?php echo $this->instancejson->Instance->atultblInstanceProcess->SubjectSummary; ?></span></small>
+</li>
+<?php if ($this->authorized):
+?>
+<li class="instancecolumn">
+<br />
+<small><a href="#" id="changeOwner">Change Owner</a></small>
+</li>
+<?php endif; ?>
+</div>
+</div>
+<div id="message"></div>
+<div class="subprocessdiv  ui-widget-content">
+<table id="main_table">
+<thead>
+<tr>
+<th></th>
+<th>Summary</th>
+<th>Completed</th>
+<th>N/A</th>
+<th>Completed By</th>
+<th>Date</th>
+<th>Time Remaining</th>
+</tr>
+</thead>
+<tfoot>
+<tr>
+<td colspan="7"></td>
+</tr>
+</tfoot>
+<!--Dynamic data -->
+<?php
+//If set, for each of the subprocesses, add them and their activities to the page.
+if(isset($this -> instancejson -> Instance->atultblInstanceSubProcess )):
+if(!is_array($this->instancejson->Instance->atultblInstanceSubProcess)):
+$spArray = array($this->instancejson->Instance->atultblInstanceSubProcess);
+else:
+$spArray  = $this->instancejson->Instance->atultblInstanceSubProcess;
+endif;
+foreach ($spArray as $sp):
+$subProcessTitle =  "Description: " . $sp -> SubProcessDescription;
+$currentSubClass = "";
+
+if(isset($currentSubProcess[0]->AtulSubProcessID) && $sp -> AtulSubProcessID===$currentSubProcess[0]->AtulSubProcessID){
+echo "<input type=\"hidden\" id=\"currentsub\" name=\"currentsub\" value=\"". $currentSubProcess[0]->AtulSubProcessID ."\" />";
+$currentSubClass =	"currentsub";
+}
+?>
+<tbody id="subprocesshead-<?php echo $sp -> AtulSubProcessID; ?>" AtulInstanceProcessSubProcessID="<?php echo $sp -> AtulInstanceProcessSubProcessID; ?>" AtulProcessSubprocessID="<?php echo $sp -> AtulProcessSubprocessID; ?>"  class="section subprocess-<?php echo $sp -> AtulSubProcessID; ?> <?php echo $currentSubClass; ?>">
+<tr class="subprocesshead " title="<?php echo $subProcessTitle; ?>">
+<td colspan="7" class="flip" id="subprocess-<?php echo $sp -> AtulSubProcessID; ?>">
+<div class=" ui-widget-content ui-corner-all subprocesshead ">
+<?php print $sp -> SubProcessSummary; ?>
+</div></td>
+<?php
+			//if set, add the activites to the appropriate subprocess
+			if(isset($this -> instancejson -> Instance->atultblProcessActivity)):
+			//if the activities aren't in an array, make it one.
+			//This issue arises when we have more subprocesses than activities
+			if(!is_array($this->instancejson->Instance->atultblProcessActivity)):
+			$activityArray = array($this->instancejson->Instance->atultblProcessActivity);
+			else:
+			$activityArray = $this->instancejson->Instance->atultblProcessActivity;
+			endif;
+			//Determine if the activity is complete and decorate the activity accordingly
+			foreach ($activityArray as $pa):
+			if ($pa -> AtulSubProcessID === $sp -> AtulSubProcessID):
+			$nachecked = "";
+			$completechecked = "";
+			$disabled="";
+			if($pa ->InstanceProcessActivityCompleted == "true" and $pa ->InstanceProcessActivityDidNotApply == "false"):
+			$completechecked='checked="yes"';
+			$disabled="disabled";
+			elseif($pa ->InstanceProcessActivityDidNotApply == "true"):
+			$nachecked ='checked="yes"';
+			$disabled="disabled";
+			endif;
+			//set a value for completedby or it will blow up on the page
+			$completedBy = (isset($pa -> InstanceProcessActivityCompletedByName)) ? $pa -> InstanceProcessActivityCompletedByName : "";
+
+			$deadline = Atul_Utility::AtulDate($pa -> InstanceProcessActivityDeadline, true, $this->UTCOffset);
+			$modifiedDate = Atul_Utility::AtulDate($pa -> ModifiedDate, true, $this->UTCOffset);
+			//$modifiedDate->modify('-'.$this->UTCOffset.' hour');
+
+			$activityTitle = "Description: " . $pa ->ActivityDescription . "<br/>" . "Deadline: " . $deadline . " <br/>Completed By: " . $completedBy;
+			?>
+			<tr title="<?php echo $activityTitle; ?>" class="activityRow activity-<?php echo $pa -> AtulSubProcessID; ?>">
+				<!--Set icon for hidden procedure row-->
+
+				<td class="processtoggle lbicon" id="processtoggle-<?php echo $pa -> AtulInstanceProcessActivityID; ?>"></td>
+				<td class="activitydata"><?php print $pa -> ActivitySummary; ?></td>
+				<td class="activitydata">
+					<input type="checkbox" class="checkcomplete" <?php if (!$this->authorized): ?>disabled="true"<?php endif; ?> <?php print $completechecked." ".$disabled ?> id="checkcomplete-<?php echo $pa -> AtulInstanceProcessActivityID; ?>">
+				</td>
+				<td class="activitydata">
+					<input type="checkbox" class="checkna" <?php if (!$this->authorized): ?>disabled="true"<?php endif; ?> <?php print $nachecked ." ".$disabled?> id="checkna-<?php echo $pa -> AtulInstanceProcessActivityID; ?>">
+				</td>
+				<td class="activitydata" id="completedby-<?php echo $pa -> AtulInstanceProcessActivityID; ?>"><?php print $completedBy; ?></td>
+				<td class="activitydata" id="modifiedDate-<?php echo $pa -> AtulInstanceProcessActivityID; ?>"><?php print $modifiedDate?></td>
+				<td class="activitydata" id="TimeRemaining-<?php echo $pa -> AtulInstanceProcessActivityID; ?>"><?php print AtulPim::GetTimeRemaining(date('c'), $deadline); ?></td>
+
+			</tr>
+			<?php 
+			if(isset($this -> instancejson -> Instance-> FlexField)):
+			GLOBAL $currentactivity; $currentactivity = $pa->AtulActivityID;
+				if(!is_array($this -> instancejson -> Instance-> FlexField)){
+					$flexfieldArray = array($this -> instancejson -> Instance-> FlexField); 
+				}else{
+					$flexfieldArray = $this -> instancejson -> Instance-> FlexField;
+				}
+			$newFFArray = array_filter($flexfieldArray, 'GetTheFlexField');
+			if(isset($newFFArray)&& (count($newFFArray)>0)):?>
+			
+			<tr class="ui-corner-all activityflexfield-<?php echo $pa -> AtulSubProcessID; ?> " id="activityflexfield-<?php echo $pa -> AtulInstanceProcessActivityID; ?>" >
+
+				<td class="activityflexfield-<?php echo $pa -> AtulSubProcessID; ?>"></td>
+
+				<td colspan="8" class="ui-corner-all activityflexfield-<?php echo $pa -> AtulSubProcessID; ?> activityflexfield">
+					<div class="activityflexfield-<?php echo $pa -> AtulSubProcessID; ?> activityflexfield">
+						<?php foreach($newFFArray as $ff):
+						GLOBAL $FlexFieldID; $FlexFieldID = $ff->AtulFlexFieldID;
+						
+						if(isset($this -> instancejson -> Instance-> FlexFieldStorage)){
+							$ffArray = array();
+							if(is_object($this -> instancejson -> Instance-> FlexFieldStorage))
+							{
+								$ffArray[]=$this -> instancejson -> Instance-> FlexFieldStorage;
+							}
+							else
+							{
+								$ffArray=$this -> instancejson -> Instance-> FlexFieldStorage;
+							}
+							$newFFValueArray = array_filter($ffArray, 'GetTheFlexFieldValue');
+						}
+						$tokenValue = "";
+						$required = "";
+						$defaultvalue = "";
+						if(isset($newFFValueArray)&& (count($newFFArray)>0)){
+							
+							$sObj = end($newFFValueArray);
+							
+							if(is_object($sObj)&& $sObj->TokenValue != null && !is_object($sObj->TokenValue)){
+								error_log("FlexFieldValueObj: \t".print_r($sObj, true)."\n",3, "C:\Windows\Logs\php_error.log");
+								$tokenValue = $sObj->TokenValue;
+							}else{
+								error_log("FlexFieldValueObjtoDefault: \t".$ff->DefaultTokenValue."\n",3, "C:\Windows\Logs\php_error.log");
+								$tokenValue = $ff->DefaultTokenValue;
+								$defaultvalue = "default";
+							}
+
+						}else{
+								error_log("FlexFieldValueObjtoDefault: \t".$ff->DefaultTokenValue."\n",3, "C:\Windows\Logs\php_error.log");
+								$tokenValue = $ff->DefaultTokenValue;
+								$defaultvalue = "default";
+							}
+						error_log("FlexField: \t".print_r($ff, true)."\n",3, "C:\Windows\Logs\php_error.log");
+						unset($newFFValueArray);
+						$ff->IsRequired=="true"?$required.="requiredff":$required .= "optionalff";	
+						$ff->IsRequired=="true"?$tooltip="Required - " . $ff -> ToolTip:$tooltip = $tooltip=$ff -> ToolTip;
+						?>
+					<li class="activityflexfield activityflexfieldli <?php echo $defaultvalue; ?>" >
+						<input type="image" id="tokenlist" src="/img/token.png" class="tokenlist" title="Token List"/>
+						<label for="ff-<?php echo $ff->AtulFlexFieldID?>" class="fflabel"><?php echo $ff -> FriendlyName; ?> : </label><textarea rows="2" cols="20" class="activityflexfield input <?php echo $required; ?>" id="ff-<?php echo $ff->AtulFlexFieldID?>" relation="activity-<?php echo $pa -> AtulInstanceProcessActivityID?>" title="<?php echo $tooltip; ?>"/><?php echo $tokenValue; ?></textarea></li>
+					<?php
+
+					endforeach;
+					?>						
+					</div>
+				</td>
+			</tr>
+			<?php unset($newFFArray);
+				endif;
+				endif;
+			?>
+			<tr class="processinfo-<?php echo $pa -> AtulSubProcessID; ?> processinfo" id="processinfo-<?php echo $pa -> AtulInstanceProcessActivityID; ?>" >
+				<td class="processinfo-<?php echo $pa -> AtulSubProcessID; ?>"></td>
+				<td colspan="8" class="processinfo-<?php echo $pa -> AtulSubProcessID; ?>">
+					<div class="processinfo-<?php echo $pa -> AtulSubProcessID; ?> processinfocontent ui-state-highlight">
+						<?php print nl2br($pa -> ActivityProcedure); ?>
+					</div>
+				</td>
+			</tr>
+
+			<?php
+			endif;
+			endforeach;
+			endif;
+			endforeach;
+			endif;
+			?>
+			</tbody>
+			<!--End Dynamic data -->
+		</table>
+	</div>
+</div>
+<br />
+<div id="opening"  style="display: none">
+	<img id="loading-image" src="/img/loading65.gif" alt="Loading..." />
+</div>
+<div id="tokenlistdialog" class="tokenlist" style="display: none">
+	<table id="tokenlisttable">
+		<thead>
+			<th>Friendly Name</th><th>Token Name</th>
+		</thead>
+		<tbody>
+			<?php if (isset($this -> instancejson -> Instance-> FlexField )) :
+
+foreach ($this -> instancejson -> Instance-> FlexField as $f) :			
+			?>
+			<tr>
+				<td><?php echo $f -> FriendlyName; ?></td>
+				<td>@<?php echo $f -> TokenName; ?>@</td>
+			</tr>
+			<?php endforeach; ?>
+			<?php
+			endif;
+			?>
+		</tbody>
+	</table>
+</div>
+<?php
+else:
+
+print '
+<div class="pimerrormsg">
+No valid instance id submitted.
+</div>
+';
+endif;
+?>
+<div id="pimuser" style="display: none">
+	<?php echo $this -> user -> name; ?>
+</div>
+
+<?php
+function GetTheFlexField($a) {
+	global $currentactivity;
+	//error_log("GetTheFlexField: \t" . print_r($a, true) . "\n", 3, "C:\Windows\Logs\php_error.log");
+	if (isset($a -> AtulActivityID) && $a -> AtulActivityID === $currentactivity) {
+		return $a;
+	}
+
+}
+
+function GetTheSubProcessFlexField($a) {
+	global $currentsubprocess;
+	//error_log("GetTheFlexField: \t" . print_r($a, true) . "\n", 3, "C:\Windows\Logs\php_error.log");
+	if (isset($a -> AtulSubProcessID) && $a -> AtulSubProcessID === $currentsubprocess) {
+		return $a;
+	}
+
+}
+
+function GetTheFlexFieldValue($a) {
+	global $FlexFieldID;
+	if ($a -> AtulFlexFieldID === $FlexFieldID) {
+		return $a;
+	}
+
+}
+?>

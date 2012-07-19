@@ -1,0 +1,190 @@
+<!-- Copyright (c) <2012>, <Go Daddy Operating Company, LLC>
+All rights reserved.
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+    Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+    Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ -->
+<?php
+
+if ((is_object($this->process))&&( isset($this->process-> AtulProcessID))) : 
+
+?>
+<div id="processTab" class="tab_body">
+	<div class="instance<?php if (!$this->authorized): ?> uauth<?php endif; ?>" id="processInfo" processId="<?php echo $this -> process -> AtulProcessID; ?>">
+		<h3 class="head done stepDesc" id="instancetitle"><?php echo $this -> process -> ProcessSummary; ?></h3>
+		<div class="tooltip"></div>
+	</div>
+	<div id="instancedetail">
+		<ul class="newprovider">
+			<li class="instancecolumn break" id="processDescriptionInfo">
+				Description:
+				<br />
+				<small><?php echo $this -> process -> ProcessDescription; ?></small>
+			</li>
+			<li class="instancecolumn break" id="processStatusInfo">
+				Status:
+				<br />
+				<small><?php echo $this -> process -> ProcessStatus; ?></small>
+			</li>
+			<li class="instancecolumn" id="processOwnedByInfo">
+				Owner:
+				<br />
+				<small><?php echo $this -> process -> OwnedByName; ?></small>
+			</li>
+			<li class="instancecolumn" id="processDeadlineInfo">
+				Deadline:
+				<br />
+				<small><?php echo $this -> process -> DeadLineOffset; ?> minutes</small>
+			</li>
+			<!-- Functionality not included in source release yet. 
+			<li id="scheduleColumn" class="instancecolumn break">
+				
+				<?php if ($this->schedule != null && $this->schedule != false): ?>
+					<p><?php echo $this -> scheduler -> getScheduleText(); ?></p>
+					<p>Next run time is <?php echo Scheduler::parseDate($this -> schedule['NextScheduledDate']); ?>. </p>
+				<?php else: ?>
+					<p>There is no schedule for this process yet. </p>
+				<?php endif; ?>
+				
+			</li> -->
+			<li class="instancecolumn break">
+					<?php if ($this->authorized):
+					?>
+					<button id="editProcess">Edit Process</button>
+					<button id="addSubProcess">Add SubProcess</button>
+					<button id="changeOwner">Change Owner</button>
+					<!-- functionality not included in source release yet. 
+					<?php if ($this->schedule != null && $this->schedule != false): ?>
+						<button id="removeSchedule" scheduleId="<?php echo $this -> schedule['AtulProcessScheduleID']; ?>">Remove Schedule</button>
+					<?php else: ?>
+						<button id="addSchedule">Add A Schedule</button>
+					<?php endif; ?>
+					-->
+				<?php endif; ?>
+			</li>
+		</ul>
+	</div>
+	<div id="message"></div>
+	<div id="processEditor" <?php if ($this->authorized): ?>class="auth"<?php endif; ?>>
+		<table id="processcontainer" class="subprocesscontainer">
+			<thead class="activityth">
+				<tr>
+					<th class="activityth" colspan="2">Summary</th>
+					<th class="activityth">Description</th>
+					<th class="activityth">Procedure</th>
+					<th class="activityth">User</th>
+					<th class="activityth"></th>
+				</tr>
+			</thead>
+			<?php foreach ($this->process->subProcesses as $subProcess):?>
+
+			<tbody class="subProcess <?php if ($this->authorized): ?> auth<?php endif; ?>" sort="<?php echo $subProcess -> ProcessSubprocessSortOrder; ?>" ProcessSubProcessId="<?php echo $subProcess -> AtulProcessSubprocessID; ?>" ProcessSubProcessId="<?php echo $subProcess -> AtulProcessSubprocessID; ?>" subProcessId="<?php echo $subProcess -> AtulSubProcessID; ?>"<?php if ($this->authorized): ?> class="auth"<?php endif; ?>>
+				<tr class="subprocesstitle">
+					<td colspan="100%" subProcessId="<?php echo $subProcess -> AtulSubProcessID; ?>" class="subprocesshead<?php if (!$this->authorized): ?> uauth<?php endif; ?>">
+						<div class="movebuttons"><span class="moveup"></span><span class="movedown"></span></div>
+						<span class="title"><?php echo $subProcess -> SubProcessSummary; ?></span>
+						<?php if ($this->authorized): ?>
+							<span class="delete"></span>
+							<span class="addActivity"></span>
+						<?php endif; ?>
+					</td>
+				</tr>
+			<?php 
+				if (is_array($subProcess->activities)):
+					foreach ($subProcess->activities as $activity):
+				?>
+
+						<tr class="activity activityRow<?php if (!$this->authorized): ?> uauth<?php endif; ?>" activityId="<?php echo $activity -> AtulActivityID; ?>">
+							<td class="activitydata"><div class="movebuttons"><span class="moveup"></span><span class="movedown"></span></div></td>
+							<td class="summary activitydata"><?php echo $activity -> ActivitySummary; ?></td>
+							<td class="description activitydata"><?php echo $activity -> ActivityDescription; ?></td>
+							<td class="procedure activitydata"><?php echo $activity -> ActivityProcedure; ?></td>
+							<td class="owner activitydata"><?php echo $activity -> OwnedByName; ?></td>
+							<td class="delete activitydata"><?php if ($this->authorized): ?><span class="deleteactivity"></span><?php endif; ?></td>
+						</tr>
+				<?php
+							endforeach;
+							endif;
+				?>
+			</tbody>
+			<?php endforeach; ?>
+		</table>
+	</div>
+</div>
+<table id="processParkingTable" style="display: none;">
+	<tbody class="subProcess <?php if ($this->authorized): ?> auth<?php endif; ?>" sort="" ProcessSubProcessId="" subProcessId="">
+		<tr class="subprocesstitle">
+			<td colspan="100%" subProcessId="" class="subprocesshead<?php if (!$this->authorized): ?> uauth<?php endif; ?>">
+				<span class="title"><?php echo $subProcess -> SubProcessSummary; ?></span>
+				<?php if ($this->authorized): ?>
+					<span class="delete"></span>
+					<span class="addActivity"></span>
+				<?php endif; ?>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<div id="opening" style="display: none" class="loading">
+	<span class="loading">Loading...
+		<br/>
+		<br/>
+		<img src="/img/loading65.gif"></span>
+</div>
+<div id="ffform" style="display: none" class="input">
+	<form id="ffformdialog" class="input">
+		<fieldset>
+			<label for="newfffriendlyname">Friendly Name:<span class="helptext" title="<?php echo Atul_Utility::indexNotSetEmptyString($this -> helpText, 'friendlyname'); ?>"></span></label>
+			<input type="text" id="newfffriendlyname" name="newfffriendlyname" class="input" />
+			<br/>
+			<label for="newfftokenname">Token Name:<span class="helptext" title="<?php echo Atul_Utility::indexNotSetEmptyString($this -> helpText, 'tokenname'); ?>"></span></label>
+			<input type="text" id="newfftokenname" name="newfftokenname" class="input" />
+			<br/>
+			<label for="newfftooltip">Tool Tip:<span class="helptext" title="<?php echo Atul_Utility::indexNotSetEmptyString($this -> helpText, 'tooltip'); ?>"></span></label>
+			<textarea rows="4" cols="15" class="activityflexfield input" id="newfftooltip"></textarea>
+			<br/>
+		</fieldset>
+	</form>
+</div>
+<div id="tokennamehelp" style="display: none">	
+</div>
+<div id="tokenhelptext" style="display: none">
+	<?php echo Atul_Utility::indexNotSetEmptyString($this -> helpText, 'tokenname'); ?>
+</div>
+<div id="tokenlistdialog" class=-"tokenlist" style="display: none">
+		<table id="tokenlisttable">
+		<thead>
+			<th>Friendly Name</th><th>Token Name</th>
+		</thead>
+		<tbody>
+			<?php if (isset($this -> flexfields -> FlexField)) :
+
+foreach ($this -> flexfields->FlexField as $f) :
+			?>
+			<tr id="<?php echo $f -> TokenName; ?>">
+				<td><?php echo $f -> FriendlyName; ?></td>
+				<td>@<?php echo $f -> TokenName; ?>@</td>
+			</tr>
+			<?php endforeach; ?>
+			<?php
+			endif;
+			?>
+		</tbody>
+	</table>
+</div>
+
+<script type="text/javascript">var prefixes =<?php echo json_encode(array_values($this -> prefixes)); ?>;</script>
+<?php
+
+else:
+
+?>
+<div class="pimerrormsg">
+	No valid process id submitted.<br/>
+	<span class="errormsg"><?php echo $this->error;?></span>
+</div>
+<?php 
+endif;
+?>

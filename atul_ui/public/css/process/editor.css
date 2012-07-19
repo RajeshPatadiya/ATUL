@@ -1,0 +1,463 @@
+/*
+Copyright (c) <2012>, <Go Daddy Operating Company, LLC>
+All rights reserved.
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+    Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+    Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+span.bsmListItemLabel, p.extraTime {
+	min-width: 25em;
+}
+
+h3.ui-accordion-header.ui-state-active {
+	background: url("ui-bg_glass_40_7CAE01_1x400.png") repeat-x scroll 50% #7CAE01;
+}
+
+h3.ui-accordion-header.ui-state-active:hover {
+	background: url("ui-bg_glass_40_90ba27_1x400.png") repeat-x scroll 50% #90ba27;
+}
+
+h3.ui-accordion-header.ui-state-active a {
+	color: #ffffff;
+}
+
+button {
+	cursor: pointer;
+}
+
+#message {
+	clear: both;
+	overflow: visible;
+	margin-bottom: 5px;
+}
+
+#message span.info {
+	background: #FFEB96;
+	border: 1px solid #FFD200;
+	padding: 5px;
+}
+
+#processEditor {
+	-moz-border-radius: 5px;
+	border: 1px solid #CCC;
+	border-radius: 5px;
+	clear: both;
+	font: bold 13px Verdana, Arial, Helvetica, sans-serif;
+	vertical-align: middle;
+	padding: 5px;
+}
+
+#processcontainer {
+	width: 100%;
+}
+
+#processInfo {
+	width: 100%;
+	font-weight: 700;
+	vertical-align: middle;
+}
+#processInfo:not(.uauth) {
+	cursor: pointer;
+}
+#instancedetail {
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	font: 12px Verdana, Arial, Helvetica, sans-serif;
+	background-color: #E4EFC7;
+	float: left;
+	width: 100%;
+}
+
+#instancedetail span.fullwidth {
+	display: block;
+	width: 100%;
+}
+
+#instancedetail ul {
+	float: left;
+}
+
+#tab_body {
+	border: 1px solid #FFD200;
+}
+
+.activityRow {
+	font: bold 13px Verdana, Arial, Helvetica, sans-serif;
+}
+
+.activityth {
+	background-color: #E0E0E0;
+	border: 1px solid #E0E0E0;
+	border-radius: 5px 5px 5px 5px;
+	color: #5A5655;
+	font: bold 16px Verdana, Arial, Helvetica, sans-serif;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding: 5px;
+	text-align: left;
+	z-index: 88;
+}
+
+.errormsg {
+	color: red;
+	font: bold 13px Verdana, Arial, Helvetica, sans-serif;
+	display: none;
+}
+
+h3.head {
+	background-color: #E0E0E0;
+	border: 1px solid #E0E0E0;
+	border-radius: 5px 5px 5px 5px;
+	clear: both;
+	color: #5A5655;
+	display: block;
+	font: bold 16px Verdana, Arial, Helvetica, sans-serif;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding: 5px;
+	text-align: left;
+	z-index: 88;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.instancecolumn {
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	float: left;
+	list-style: none;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 5px;
+	vertical-align: middle;
+}
+
+li.instancecolumn {
+	color: #5A5655;
+	font-weight: bolder;
+}
+
+li.instancecolumn small, td.activitydata {
+	font-weight: normal;
+}
+
+.break {
+	clear: both;
+}
+
+li.instancecolumn small {
+	padding-left: .5em;
+	color: #000000;
+}
+
+.instancecontainer {
+	clear: both;
+	color: #FFF;
+	font: 13px Verdana, Arial, Helvetica, sans-serif;
+	height: 80%;
+	padding: 20px;
+	vertical-align: middle;
+}
+
+#ownerUserChoice, #ownerGroupChoice {
+	display: none;
+}
+
+#scheduleColumn {
+	padding-left: 40px;
+	margin-left: 6px;
+	background: url('/img/Calendar32.png') left no-repeat;
+	height: 32px;
+	text-align: bottom;
+	background: url('/img/Calendar32.png') left no-repeat;
+}
+
+#AnyTime--scheduleStartTime {
+	z-index: 3000;
+}
+
+.loading {
+	margin-left: auto;
+	margin-right: auto;
+	width: 6em;
+}
+
+.pimerrormsg {
+	color: #478606;
+	font-size: 20px;
+	font-weight: 700;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 40px 30px 10px;
+	width: 400px;
+}
+/* .processContainer {
+ clear: both;
+ color: #FFF;
+ font: 13px Verdana, Arial, Helvetica, sans-serif;
+ height: 80%;
+ padding: 20px;
+ vertical-align: middle;
+ }
+ */
+.subProcess {
+	margin-bottom: 15px;
+	width: 100%;
+}
+
+caption {
+	text-align: left;
+}
+
+tbody.subProcess.auth tr {
+	cursor: pointer;
+	width: 100%;
+}
+
+tbody.subProcess tr:hover {
+	background: #FFFDF9;
+}
+
+tbody.subProcess tr.activityRow:nth-child(even) {
+	background: #EEEEEE !important;
+}
+
+tbody.subProcess tr.activityRow:nth-child(odd) {
+	background: #FFFFFF !important;
+}
+
+.subProcess td {
+	padding: 5px;
+}
+
+.subProcess th {
+	background: #ffb76b;
+	color: #FFF;
+	font: bold 13px Verdana, Arial, Helvetica, sans-serif;
+	height: 20px;
+	padding: 10px;
+	text-align: left;
+	vertical-align: middle;
+}
+
+.subProcess thead {
+	background: #ffb76b;
+	color: #FFF;
+	font: bold 13px Verdana, Arial, Helvetica, sans-serif;
+	height: 20px;
+	padding: 10px;
+	text-align: left;
+	vertical-align: middle;
+}
+
+.subProcess tr {
+	text-align: left;
+}
+
+tr.subprocesstitle {
+	background: #E4EFC7 !important;
+}
+
+span.addAutomationProvider {
+	height: 20px;
+	margin-left: 60px;
+	width: 120px;
+}
+
+span.addNotificationProvider {
+	height: 20px;
+	margin-left: 60px;
+	width: 120px;
+}
+
+span.addSubjectProvider {
+	height: 20px;
+	margin-left: 60px;
+	width: 120px;
+}
+
+span.addActivity {
+	background: url('/img/add.png');
+	background-repeat: no-repeat;
+	float: right;
+	height: 20px;
+	margin-right: 10px;
+	width: 20px;
+	background-position: center center;
+}
+
+span.delete:hover, span.deleteactivity:hover {
+	background: url('/img/delete.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+span.delete {
+	background: url('/img/delete_disabled.png');
+	background-repeat: no-repeat;
+	height: 16px;
+	width: 16px;
+	background-position: center center;
+	float: right;
+}
+
+span.deleteactivity {
+	background: url('/img/delete_disabled.png');
+	background-repeat: no-repeat;
+	float: right;
+	height: 16px;
+	width: 16px;
+	background-position: center center;
+}
+
+span.moveup {
+	background: url('/img/mini-arrow_up.gif');
+	background-repeat: no-repeat;
+	float: right;
+	height: 16px;
+	width: 16px;
+	background-position: center center;
+}
+
+span.movedown {
+	background: url('/img/mini-arrow_down.gif');
+	background-repeat: no-repeat;
+	float: left;
+	height: 16px;
+	width: 16px;
+	background-position: center center;
+}
+.activityRow:nth-child(2) td span.moveup, tbody.subProcess:nth-child(2) tr.subprocesstitle span.moveup, .activityRow:last-child td span.movedown, tbody.subProcess:last-child tr.subprocesstitle span.movedown {
+	display: none;
+}
+
+tfoot {
+	background: #ffb76b;
+	text-align: left;
+	vertical-align: middle;
+	padding: 10px;
+}
+
+th {
+	background: #ffb76b;
+	color: #FFF;
+	font: bold 13px Verdana, Arial, Helvetica, sans-serif;
+	height: 20px;
+	padding: 10px;
+	text-align: left;
+	vertical-align: middle;
+}
+
+ul {
+	margin-left: 0;
+	padding-left: 0;
+}
+
+.subprocessdiv {
+	vertical-align: middle;
+}
+
+div.example {
+	margin-left: .3em;
+	margin-right: auto;
+	font-size: 9px;
+	font-style: oblique;
+	height: 20px;
+}
+
+.invalid {
+	background-color: #FED1D2;
+}
+/*FLEXFIELD BEGIN*/
+
+.flexfieldContainer input {
+	vertical-align: top !important;
+}
+.flexfieldname {
+	width: 230px !important;
+}
+.flexdefault {
+	width: 300px !important;
+}
+.ffinput input[type='checkbox'] {
+	vertical-align: top !important;
+}
+
+.ffinput input[type='text'] {
+	vertical-align: top !important;
+}
+
+.ffinput {
+	vertical-align: top !important;
+}
+
+div.isparam {
+	border-style: solid;
+	border-width: 1px;
+	border-color: #CCFC88 !important;
+	background-color: #FFFFDD !important;
+}
+
+div.flexfieldContainer {
+	padding: 5px;
+}
+
+.invalidtoken {
+	border-style: solid;
+	border-bottom-width: 3px;
+	border-color: #ECC3BF;
+	background-color: #FED1D2;
+}
+
+/*FLEXFIELD END*/
+.tokenhelp li {
+	color: gray;
+	text-align: left;
+	z-index: 2000;
+}
+
+label [for] {
+	float: left;
+	display: inline-block;
+	vertical-align: text-bottom;
+	padding: .25em .25em 0 .25em;
+	margin: .25em .25em 0 .25em;
+	color: #5A5655;
+}
+
+.input {
+	margin-left: 0.3em;
+	display: block;
+	clear: left;
+	margin-top: 3px;
+	vertical-align: baseline;
+}
+
+.followedinput {
+	margin-left: 0.3em;
+	margin-right: 0.3em;
+	display: inline-block;
+	clear: left;
+	margin-top: 3px;
+	vertical-align: baseline;
+}
+
+textarea.input {
+	min-height: 8em;
+	width: 45em;
+}
+#instancetitle:hover, tr.subprocesstitle:hover, tbody.subProcess tr.activityRow:hover {
+	background: #FFFDAD !important;
+}
+
+.longinput {
+	width: 45em;
+}
+
+.movebuttons {
+	float: left;
+	width: 33px;
+}

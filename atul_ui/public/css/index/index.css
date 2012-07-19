@@ -1,0 +1,186 @@
+@CHARSET "ISO-8859-1";
+/*
+Copyright (c) <2012>, <Go Daddy Operating Company, LLC>
+All rights reserved.
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+    Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+    Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+
+#explorerTab {
+	font: 12px Verdana, Arial, Helvetica, sans-serif;
+}
+
+#instanceList {
+	cursor: pointer;
+}
+
+#instanceActionIcons {
+	display: none;
+}
+
+#instanceEditAction {
+	background: url('/img/tools.png') no-repeat;
+	background-position: center center;
+}
+
+#historyBox {
+	width: 28%;
+	float: right;
+	height: *;
+	border: 1px solid #aaa;
+	padding: 3px;
+	border-radius: 5px 5px 5px 5px;
+}
+
+#instanceSummarySpan {
+	display: inline-block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 90%;
+	float:left;
+}
+
+.deleteInstance {
+	background: url('/img/delete.png') no-repeat;
+	background-position: center center;
+	width: 20px;
+	display: inline-block;
+	margin-left: 10px;
+}
+
+#processTree div.treemultiselectulcontainer>ul.treemultimenu>li>div.treemultimenutext
+	{
+	font-weight: bold;
+}
+
+#processBox {
+	width: 70%;
+	float: left;
+}
+
+#processCreateAction {
+	background: url('/img/add.png') no-repeat;
+	background-position: center center;
+}
+
+#instanceCreateAction {
+	background: url('/img/add.png') no-repeat;
+	background-position: center center;
+}
+
+#processDeleteAction {
+	background: url('/img/delete.png') no-repeat;
+	background-position: center center;
+}
+
+#historyBox h3 {
+	font-weight: bold;
+}
+
+#historyBox ul {
+	margin-left: 15px;
+	overflow: hidden;
+}
+
+#historyBox ul li {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-bottom: 3px;
+	text
+}
+
+#historyBox a {
+	text-decoration: none;
+}
+
+#historyBox ul li:hover {
+	background-color: #F0F0F0;
+}
+
+.h2span {
+	display: inline-block;
+	vertical-align: baseline;
+}
+
+.actionicons {
+	padding-left: 20px;
+	display: inline-block;
+}
+
+.actionicons span {
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	cursor: pointer;
+}
+
+h2.sectionheader,#historyBox h2 {
+	background-color: #E0E0E0;
+	border: 1px solid #E0E0E0;
+	border-radius: 5px 5px 5px 5px;
+	clear: both;
+	color: #5A5655;
+	display: block;
+	font: bold 16px Verdana, Arial, Helvetica, sans-serif;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding: 5px;
+	text-align: left;
+	z-index: 88;
+}
+
+div.indented {
+	margin-left: 20px;
+}
+
+div.treemultiselectulcontainer {
+	border: none;
+	overflow-y: auto;
+}
+
+ul.border {
+	padding-left: 0px;
+}
+
+#instanceList li:hover {
+	background-color: #F0F0F0;
+}
+
+li.treemultimenu {
+	cursor: pointer;
+}
+
+li.treemultimenu:hover {
+	background-color: #F0F0F0;
+}
+
+li.treemultimenu.visiblechildren:hover {
+	background-color: transparent;
+}
+
+li.treemultimenu[nodeID]>span.checkbox {
+	background-image: none;
+}
+
+li.treemultimenu[nodeID].haschildren:hover>span.checkbox {
+	background-image: none;
+}
+
+li.treemultimenu[nodeID]:hover>span.checkbox,li[nodeID].haschildren>span.checkbox:hover
+	{
+	background-image: none;
+}
+
+li.treemultimenu.selected.haschildren:hover>span.checkbox,li.selected:hover>span.checkbox
+	{
+	background-image: none;
+}
+
+li.treemultimenu.selected {
+	background-color: #E4EFC7;
+}

@@ -1,0 +1,194 @@
+@CHARSET "ISO-8859-1";
+/*
+Copyright (c) <2012>, <Go Daddy Operating Company, LLC>
+All rights reserved.
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+    Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+    Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+/* ******************** CSS Reset ***************/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after, q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/* ************** End CSS Reset ***************/
+
+body {
+	background: #fff;
+	margin: 0;
+	padding: 0;
+	font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
+	font-size: 80%;
+}
+/* ********** Navigation Bar *****************/
+#header {
+	background: #000 url('/img/gradient_background.png') repeat-x;
+	color: #fff;
+	height: 30px;
+	padding: 2px 10px;
+}
+#checklist_title {
+	margin-left: 50px;
+	color: #618D06;
+	font-size: 1.25em;
+	position: relative;
+	top: -10px;
+}
+#builder_title {
+	color: #fff;
+	font-size: 1.25em;
+	position: relative;
+	top: -10px;
+}
+#tabs {
+	margin-top: 0;
+	font-size: .8em;
+	padding: 0;
+}
+#tabs li .ui-icon-close {
+	float: left;
+	margin: 0.4em 0.2em 0 0;
+	cursor: pointer;
+}
+#add_tab {
+	cursor: pointer;
+}
+#toplogin {
+	font-size: 1em;
+	float: right;
+	margin-top: 10px;
+}
+#tabs > div {
+	padding: .75em;
+	margin: 0;
+}
+/* ********** End of Navigation Bar *****************/
+#tabs div.content {
+	margin: 10px;
+	border: 1px solid #a3a3a3;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	overflow: auto;
+}
+/* ********** Tooltips ******************************/
+
+#tooltip {
+	position: absolute;
+	z-index: 3000;
+	border: 1px solid #111;
+	background-color: #eee;
+	padding: 5px;
+}
+#tooltip h3, #tooltip div { 
+	max-width: 400px;
+	margin: 0; 
+}
+
+#tooltip h3{
+	font-weight: bolder;
+	padding-bottom: 4px;
+}
+
+/* ********** End tooltip ***************************/
+
+#content {
+	clear: both;
+	margin-top: 30px;
+}
+.tab_body {
+	border: 1px solid #000;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	padding: 10px;
+	margin: 0 auto;
+}
+button {
+	background-color: #5A5655;
+    border: 1px solid #5A5655;
+    border-radius: 5px 5px 5px 5px;
+    color: #FFFFFF;
+	font: bold 13px Verdana, Arial, Helvetica, sans-serif;
+    margin: 5px 3px 0;
+    outline-style: none;
+    text-align: center;
+    text-decoration: none;
+}
+button:hover {
+	background: #ccc;
+}
+span.helptext {
+	width: 16px;
+	height: 15px;
+	background: url('/img/help.png');
+	display: inline-block;
+	margin-left: .5em;
+}
+
+/* ********** Footer ********************************/
+
+#footer-wrapper {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 0;
+    clear: both;
+    margin: 5px 15px;
+}
+#footer {
+    text-align: center;
+}
+/* ********** End footer ****************************/
+/*************TOKEN Dialog **************************/
+#tokenlist {
+	float: right;
+}
+#tokenlistdialog th {
+	padding-left: 5px;
+	padding-bottom: 2px;
+	background: #ffb76b;
+	color: #FFF;
+	font: bold 13px Verdana, Arial, Helvetica, sans-serif;
+	text-align: left;
+	vertical-align: middle;
+}
+#tokenlistdialog table {
+	width: 100%;
+}
+#tokenlistdialog td {
+	padding-left: 5px;
+	padding-bottom: 2px;
+	overflow: hidden;
+}
+#tokenlistdialog tr {
+	border-style: solid;	
+	border-width: 1px;	
+	border-color: #CCFC88;
+}
+/*********END*TOKEN Dialog **************************/

@@ -1,0 +1,97 @@
+<!-- Copyright (c) <2012>, <Go Daddy Operating Company, LLC>
+All rights reserved.
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+    Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+    Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ -->
+<?php if ($this->authorized): ?>
+<div id="admin_tabs">
+	<ul>
+		<li><a href="#explorerTab">Manage Processes</a></li>
+		<li><a href="#undeleteTab">Undelete</a></li>
+	</ul>
+	<div id="explorerTab" class="tab_body">
+	    <h2 class="sectionheader">
+	        <span class="h2span">Processes</span>
+	        <span id="processActionIcons" class="actionicons">
+	            <span id="processCreateAction"  title="Create a new process">&nbsp;</span>
+	        </span>
+	    </h2>
+	    <div id="afterThis"></div>
+	    <h2 class="sectionheader" id="instanceHeader">&nbsp;
+	        <span id="instanceSummarySpan" class="h2span"></span><span id="instanceCountSpan" class="h2span">Instances</span>
+	        <span id="instanceActionIcons" class="actionicons">
+	            <span id="instanceCreateAction" title="Create a new instance of this process">&nbsp;</span>
+	            <span id="instanceEditAction" title="Edit this process">&nbsp;</span>
+				<span id="processOwnerAction" title="Edit Ownership">&nbsp;</span>
+				<span id="processDeleteAction" title="Delete this process">&nbsp;</span>
+	        </span>
+	    </h2>
+	    <div class="indented">
+	        <ul id="instanceList"></ul>
+	    </div>
+	</div>
+	<div id="undeleteTab">
+		<h2 class="sectionheader">
+			<span class="h2span">Processes</span>
+		</h2>
+		<ul id="deletedProcessList">
+		<?php foreach($this->deletedProcesses as $process): ?>
+			<li><?php echo $process->ProcessSummary; ?> <span class="undeleteProcess" processid="<?php echo $process->AtulProcessID; ?>">&nbsp;</span></li>
+		<?php endforeach; ?>
+		</ul>
+		<h2 class="sectionheader">
+			<span class="h2span">Instances</span>
+		</h2>
+		<ul id="deletedInstancesProcessList">
+		<?php foreach($this->deletedInstances as $process): ?>
+			<li class="deletedInstanceProcess"><span class="instanceProcessTitle collapsed" processid="<?php echo $process->AtulProcessID; ?>"><?php echo $process->ProcessSummary; ?></span>
+			<ul class="deletedInstanceList">	
+		<?php foreach ($process as $instance): ?>
+				<li class="deletedInstance"><span class="instanceTitle"><?php echo Atul_Utility::AtulDate($instance->CreatedDate, true, Zend_Registry::get('UTCOffset')).' - '.$instance->OwnedByName; ?></span> <span class="undeleteInstance" instanceid="<?php echo $instance->AtulInstanceProcessID; ?>">&nbsp;</span></li>
+			<?php endforeach; ?>
+			</ul></li>
+		<?php endforeach; ?>
+		</ul>
+	</div>
+</div>
+<div id='edit_ownership_dialog' title='Edit Ownership' style='display: none;'>
+	<input type='hidden' id='edit_process_type' value="" />
+	<input type='hidden' id='edit_process_id' value="" />
+	<div style='margin-bottom: 20px;'>
+		Select Group or User: 
+		<select id='select_ownership_type' onchange='selectOwnershipType();'>
+			<option value=''></option>
+			<option value='group'>Group</option>
+			<option value='member'>User</option>
+		</select>
+	</div>
+	
+	<div id='edit_ownership_group' class='ownership_type' style='display: none;'>
+		Group: 
+		<select>
+			<option value=''></option>
+			<?php foreach ($this->allGroups as $group): ?>
+				<option value="<?php echo htmlentities($group['AtulUserID']) ?>"><?php echo htmlentities($group['DisplayName']) ?></option>
+			<?php endforeach; ?>
+		</select>
+	</div>
+	
+	<div id='edit_ownership_member' class='ownership_type' style='display: none;'>
+		User: 
+		<select>
+			<option value=''></option>
+			<?php foreach ($this->allUsers as $user): ?>
+				<option value="<?php echo htmlentities($user['AtulUserID']) ?>"><?php echo htmlentities($user['RemoteSystemLoginID']) .' - '.htmlentities($user['DisplayName']) ?></option>
+			<?php endforeach; ?>
+		</select>
+	</div>
+	<script type="text/javascript">var processTreeData = <?php echo $this->processTreeData($this->processes); ?></script>
+</div><?php else: ?>
+<script type="text/javascript">var processTreeData = <?php echo $this->processTreeData($this->processes); ?></script>
+
+<p>You are not authorized to view this resource</p>
+<?php endif; ?>

@@ -1,0 +1,117 @@
+<!-- Copyright (c) <2012>, <Go Daddy Operating Company, LLC>
+All rights reserved.
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+    Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+    Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ -->
+<?php if(Zend_Auth::getInstance()->hasIdentity()): ?>
+<div id="process_wizard" class="swMain">
+	<ul>
+		<li>
+			<a href="#step-1">
+			  	<label class="stepNumber">1</label>
+				 	<span class="stepDesc">Step 1<br />
+						<small>Define Process</small>
+				 	</span>
+			</a>
+		 </li>
+		 <li>
+		 	<a href="#step-2">
+				 	<label class="stepNumber">2</label>
+				 	<span class="stepDesc">Step 2<br />
+						<small>Add Sub-Processes</small>
+				 	</span>
+			</a>
+		 </li>
+		 <li>
+		 	<a href="#step-3">
+				 	<label class="stepNumber">3</label>
+				 	<span class="stepDesc">Step 3<br />
+					 	<small>Add Activities</small>
+				 	</span>						
+			 	</a>
+		 </li>
+	</ul>
+	<div id="step-1">  
+			<h2 class="StepTitle">Create Your Process:</h2>
+			 	<form id="processForm">
+			 		<div class="wizardFormLine">
+			 		<div class="wizardFormInput">
+			 			<label for="processSummary">Name:<span class="helptext" title="<?php echo Atul_Utility::indexNotSetEmptyString($this->helpText,'processNameHelp'); ?>">&nbsp;</span></label>
+			 			<input type="text" name="processSummary" id="processSummary" size="80" title="<?php echo Atul_Utility::indexNotSetEmptyString($this->helpText,'processNameHelp'); ?>"/>
+			 		</div><br clear="all">
+			 		<div class="wizardFormInput">
+				 		<label for="processStatus">Status:<span class="helptext" title="<?php echo Atul_Utility::indexNotSetEmptyString($this->helpText,'processStatusHelp'); ?>">&nbsp;</span></label>
+				 		<select id="processStatus" name="processStatus" title="<?php echo Atul_Utility::indexNotSetEmptyString($this->helpText,'processStatusHelp'); ?>">
+				 			<?php foreach ($this->statusList as $status): ?> 
+				 			<option value="<?php echo $status->AtulProcessStatusID; ?>"><?php echo $status->ProcessStatus; ?></option>
+				 			<?php endforeach; ?>
+				 		</select>
+			 		</div>
+			 		<div class="wizardFormInput">
+			 			<label for="processDeadline">Deadline:<span class="helptext" title="<?php echo Atul_Utility::indexNotSetEmptyString($this->helpText,'processDeadlineHelp'); ?>">&nbsp;</span></label>
+			 			<input type="text" name="processDeadline" id="processDeadline" value="0" title="<?php echo Atul_Utility::indexNotSetEmptyString($this->helpText,'processDeadlineHelp'); ?>"/>
+			 		</div>
+			 		</div>
+			 		<div class="wizardFormTextBox">
+			 			<label for="processDescription">Description:</label>
+			 			<textarea id="processDescription" name="processDescription" ></textarea>
+			 		</div>
+			 	</form>
+	  </div>
+	  <div id="step-2">
+			<h2 class="StepTitle">Now Add Sub-Processes to Your Process:</h2>
+			<ul id="subProcesses">
+			 
+			 </ul>
+			 <div class="wizardFormLineButton">
+			 <button id="addSubProcess">Add Sub-Process</button>
+			 
+			 </div>
+	  </div>							
+	  <div id="step-3">
+			<h2 class="StepTitle">Finally, Add Activities to Your Sub-Processes:</h2>  
+			 <!-- step content -->
+			<ul id="activitiesSubProcesses">
+			
+			</ul>
+	  </div>
+</div>
+<div id="subprocessLIParkingDiv" style="display:none;">
+	<li sort="" class="subProcess">
+		<h2 class="expanded">
+			<span class="sum">New Sub-Process:</span>
+			<span class="delete"></span>
+		</h2>
+		<div>
+			<div class="wizardFormInput">
+				<label>Summary:</label>
+				<input type="text" class="subProcessSummary" size="80">
+			</div>
+			<div class="wizardFormInput">
+				<label>Deadline (in minutes):</label>
+				<input type="text" class="subProcessDeadline" value="0"/>
+			</div>
+			<div class="wizardFormTextBox">
+				<label>Description:</label>
+				<textarea class="subProcessDescription"></textarea>
+			</div>
+		</div>
+	</li>
+</div>
+<div id="subprocessActivityLIParkingDiv" style="display:none;">
+	<li sort="" class="subProcess">
+		<h2 class="expanded">
+			<span class="sum">New Sub-Process:</span>
+		</h2>
+		<ul class="activities"></ul>
+		<button class="addActivity">Add Activity</button>
+	</li>
+</div>
+<?php else: ?>
+<p>You must be logged in to use the Wizard.</p>
+<?php endif; ?>
+<script type="text/javascript"> var prefixes = <?php echo json_encode(array_values($this->prefixes)); ?>; </script>

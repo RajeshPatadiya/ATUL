@@ -1,0 +1,298 @@
+/*
+Copyright (c) <2012>, <Go Daddy Operating Company, LLC>
+All rights reserved.
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+    Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+    Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+#main_table {
+	left: 100px;
+	width: 100%;
+}
+#message {
+	clear: both;
+	min-height: 30px;
+}
+#message span.info {
+	background: #FFEB96;
+	border: 1px solid #FFD200;
+	padding: 5px;
+}
+#newSubjectProvider div {
+	height: 250px;
+}
+#processEditor {
+	-moz-border-radius: 5px;
+	background: #CCCCCC;
+	border: 1px solid #CCC;
+	border-radius: 5px;
+	clear: both;
+	float: left;
+	font: bold 13px Verdana, Arial, Helvetica, sans-serif;
+	vertical-align: middle;
+	width: 90%;
+	padding: 5px;
+}
+#processInfo {
+	background-color: #55960F;
+	border-radius: 5px 5px 5px 5px;
+	color: #FFF;
+	float: left;
+	font-weight: 700;
+	vertical-align: middle;
+	width: 90%;
+	padding: 5px;
+}
+.activity {
+	float: right;
+	margin-left: 10px;
+	vertical-align: middle;
+	width: 100%;
+}
+.activityRow {
+	border-bottom: 1px solid #FFEB96;
+	font: bold 13px Verdana, Arial, Helvetica, sans-serif;
+	vertical-align: middle;
+	border-bottom: 1px solid #FFEB96 !important;
+}
+.activitycolumn {
+	-moz-border-radius: 5px;
+	background: #e0e0e0;
+	border: 1px solid #e0e0e0;
+	border-radius: 5px;
+	color: #5a5655;
+	float: left;
+	font: bold 16px Verdana, Arial, Helvetica, sans-serif;
+	height: 20px;
+	margin-bottom: 2px;
+	margin-left: 2px;
+	padding: 4px;
+	vertical-align: middle;
+	width: 10%;
+}
+.activitydata {
+	background: #fff;
+	color: #5a5655;
+	padding: 5px;
+	border-bottom: 1px solid #FFEB96 !important;
+}
+.collapsediv {
+	display: inline;
+	padding: 4px;
+}
+.flip {
+	vertical-align: middle;
+	width: auto;
+}
+.head {
+	width: 100%;
+}
+.instance {
+	-moz-border-radius: 5px;
+	background: #55960F;
+	border-radius: 5px;
+	color: #FFF;
+	display: block;
+	float: left;
+	font: bold 20px Verdana, Arial, Helvetica, sans-serif;
+	font-weight: 700;
+	position: relative;
+	text-align: left;
+	vertical-align: middle;
+	width: 90%;
+}
+.instancecolumn {
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	float: left;
+	height: 40px;
+	list-style: none;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px;
+	vertical-align: middle;
+}
+.instancecontainer {
+	clear: both;
+	color: #FFF;
+	font: 13px Verdana, Arial, Helvetica, sans-serif;
+	height: 80%;
+	padding: 20px;
+	vertical-align: middle;
+}
+.instancedetail {
+	clear: both;
+	-moz-border-radius: 5px;
+	background: #e0e0e0;
+	border-radius: 5px;
+	float: left;
+	font: 12px Verdana, Arial, Helvetica, sans-serif;
+	width: 90%;
+	padding: 10px;
+	margin: 3px;
+}
+.lbicon {
+	background-image: url('/img/lb.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	border-bottom: 1px solid #FFEB96 !important;
+}
+.pimerrormsg {
+	color: #478606;
+	font-size: 20px;
+	font-weight: 700;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 40px 30px 10px;
+	width: 400px;
+}
+.processinfo {
+	display: none;
+}
+.processinfocontent {
+	color: #5a5655;
+	padding: 5px 5px 5px 30px;
+}
+.processtoggle {
+	width: 40px;
+}
+.section {
+	border-left: 1px solid #CCC;
+	border-right: 1px solid #CCC;
+	background-color: #ffffff;
+}
+.subprocess {
+	margin-left: 15px;
+	vertical-align: middle;
+}
+.subprocesscolumn {
+	-moz-border-radius: 5px;
+	background: #ada96e;
+	border-radius: 5px;
+	float: left;
+	height: 20px;
+	margin-left: 2px;
+	padding: 4px;
+	vertical-align: middle;
+	width: 10%;
+}
+.subprocessdiv {
+	-moz-border-radius: 5px;
+	border: 1px solid #CCC;
+	border-radius: 5px;
+	clear: both;
+	float: left;
+	font: bold 13px Verdana, Arial, Helvetica, sans-serif;
+	vertical-align: middle;
+	width: 90%;
+	padding: 5px;
+}
+.subprocesshead {
+	color: #5a5655;
+	cursor: pointer;
+	font: bold 13px Verdana, Arial, Helvetica, sans-serif;
+	font-weight: 700;
+	height: 23px;
+	margin: 5px 0px 5px 0px;
+	padding: 5px;
+}
+.subprocesshead div {
+	padding: 1px;
+}
+.subprocessheader {
+	color: #000;
+	display: table-cell;
+	float: right;
+	font-weight: 700;
+	margin-left: 10px;
+	padding: 4px;
+	vertical-align: middle;
+	width: 100%;
+}
+.tooltip {
+	color: #fff;
+	display: none;
+	font-size: 11px;
+	height: 163px;
+	padding: 40px 30px 10px;
+	width: 310px;
+}
+.tooltip .label {
+	color: #FF0;
+	width: 35px;
+}
+.tooltip a {
+	color: #ad4;
+	font-size: 11px;
+	font-weight: 700;
+}
+td {
+	height: 20px;
+	padding: 5px;
+}
+tfoot {
+	background: #ffb76b;
+	color: #FFF;
+	font: bold 13px Verdana, Arial, Helvetica, sans-serif;
+	height: 20px;
+	padding: 10px;
+	text-align: left;
+	vertical-align: middle;
+}
+th {
+	background: #ffb76b;
+	color: #FFF;
+	font: bold 13px Verdana, Arial, Helvetica, sans-serif;
+	height: 20px;
+	padding: 10px;
+	text-align: left;
+	vertical-align: middle;
+}
+tbody.currentsub tr td {
+
+	background-color: #FFFFDD !important;
+}
+td.activityflexfield {
+	border-style: solid;
+	border-bottom: 2px solid #CCCCCC;
+}
+input.activityflexfield {
+	padding: 2px;
+}
+li.activityflexfield {
+	list-style: none;
+	float: left;
+	padding: 2px;
+	margin: 2px;
+}
+.requiredff {
+	border-style: solid;
+	border-bottom-width: 3px;
+	border-color: #ECC3BF;
+}
+.optionalff {
+	border-style: solid;
+	border-bottom-width: 3px;
+	border-color: #ccc;
+}
+.fflabel {
+	text-align: right;
+	padding: 5px;
+	display: inline-block;
+	vertical-align: top;
+	min-width: 120px;
+}
+.default {
+	border-style: solid;
+	border-width: 1px;
+	border-color: #CCFC88 !important;
+	/*background-color: #ffb !important;*/
+}
+.requiredtt h3 {
+	font-weight: 900;
+	color: red;
+	text-align: center;
+}

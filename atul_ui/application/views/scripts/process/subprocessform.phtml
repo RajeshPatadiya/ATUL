@@ -1,0 +1,132 @@
+<!-- Copyright (c) <2012>, <Go Daddy Operating Company, LLC>
+All rights reserved.
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+    Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+    Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ -->
+<form id="subProcessForm" title="Edit SubProcess">
+	<p>
+		<div id="SubProcessAccordion" class="accordion">
+			<h3><a href="#">Subprocess Settings</a></h3>
+			<div>
+				<fieldset>
+					<label for="subProcessSummary">Summary:
+						<input type="text" id="subProcessSummary" name="subProcessSummary" value="<?php echo $this -> subProcess -> SubProcessSummary; ?>" class="input longinput" />
+					</label>
+					<label for="subProcessDescription">Description: 						<textarea id="subProcessDescription" class="input" name="subProcessDescription"><?php echo $this -> subProcess -> SubProcessDescription; ?></textarea> </label>
+					<label for="subProcessDeadline">Deadline (in min.):
+						<input type="text" id="subProcessDeadline" name="subProcessDeadline" class="input number" value="<?php echo $this -> processSubProcess -> DeadlineOffset; ?>" />
+					</label>
+				</fieldset>
+			</div>
+			<!--  
+			<h3><a href="#">Set a Notification Provider</a></h3>
+			<div id="providerSelectContainer">
+				<fieldset>
+					<label for="provider" class="providerlist">Select Provider:
+						<select id="provider" class="input">
+							<option value="0" title="" class="input" selected>---</option>
+							<?php
+							$selected="";
+							foreach ($this->providers as $p) :
+								if($p->AtulServiceProviderClassID == 2):
+									if($p->AtulServiceProviderID === $this->processSubProcess->NotificationServiceProviderID):
+										$selected="selected";
+									endif;
+									?>
+									<option value="<?php print $p -> AtulServiceProviderID; ?>" verb="<?php print $p -> verb; ?>" classid="<?php print $p -> AtulServiceProviderClassID; ?>" title="<?php print $p -> ServiceProviderDescription; ?>" class="input" <?php echo $selected?>><?php print $p -> ServiceProviderName; ?></option>
+									<?php
+									$selected = "";
+								endif;
+							endforeach;
+							?>
+						</select> </label>
+				</fieldset>
+			</div>
+
+			
+			<h3><a href="#">Notification Parameters and Subprocess Fields</a></h3>
+			<div id="FlexfieldContainer">
+				<fieldset id="FlexFieldFieldSet">
+					<div>
+						<input type="image" id="tokenlist" class="tokenlist" src="/img/token.png" title="Token List"/>
+					</div>
+					<?php
+					$flexfieldhelp = "Flex Fields - Flex Fields are user or system defined fields that can be populated with output from automation, set with user values or any other arbitrary data.";
+					?>
+					<div id="inputclone" style="display: none;" class="flexfieldContainer ffinput flexfieldContainernew">
+						<span class="ffinput" >Name:</span><span class="helptext"></span>
+						<input type="text" name="flexfieldclone" id="flexfieldclone" isparameter=0 class="flexfieldname ffinput" />
+						<span class="ffinput" >Required:</span>
+						<input type="checkbox" class="flexreq ffinput" name="flexfieldreqclone" id="flexfieldreqclone">
+						<input type="image" class="btnDel ffinput" id="btnDel_inputclone" title="Remove Flex Field" src="/img/delete.png" />
+						<br/>
+						<span class="ffinput" >Default Value:</span>
+						<textarea class="flexdefault ffinput" id="ffdefaultvalueclone" rows="2" cols="15"></textarea>
+
+					</div>
+					<?php
+
+					//print out the existing fields
+					if (isset($this -> flexfields -> FlexFields)) :
+						error_log("\n\n\n***\tExisting FlexFields: " . print_r($this -> flexfields, true) . "\n", 3, "C:\Windows\Logs\php_error.log");
+						foreach ($this -> flexfields->FlexFields as $f) :
+							$checked = "";
+							$isparamclass = "notparam";
+							$isparameter = false;
+							$parameterfield = "Parameters - Parameters can use tokens(existing flexfields) for dynamic values. Click the token symbol for a token list. When using tokens, insure they are wrapped with @ i.e. @mytoken@";
+							$hiddenDelete = "";
+							$tooltip = "";
+							$paramReadonly = "";
+							if(strtolower($f -> IsParameter) == "true"):
+								$isparameter = true;
+								$isparamclass = "isparam";
+								$tooltip=$parameterfield;
+								$f -> ToolTip = "Provider Parameter";
+								$hiddenDelete = "style=\"display:none\"";
+								$paramReadonly = "DISABLED";
+							else:
+								$tooltip = $flexfieldhelp;
+							endif;
+							error_log("\n\t***\tIsParameter: " . $f -> IsParameter. " | ". (int)$isparameter . "\n", 3, "C:\Windows\Logs\php_error.log");
+							if (strtolower($f -> IsRequired) == "true") :  $checked = "checked=checked";
+							endif;
+							?>
+							<li class="FlexFieldContainerLi" >
+								<div id="div_<?php echo $f -> AtulFlexFieldID; ?>" style="display:inline-block;" class="flexfieldContainer ffinput <?php echo $isparamclass; ?>">
+									<span class="ffinput" >Name:</span><span class="helptext" title="<?php echo $tooltip; ?>"></span>
+									<input type="text"  <?php echo $paramReadonly; ?> tooltip="<?php echo $f -> ToolTip; ?>" title="<?php echo "Flex Field - Token Name:" . $f -> TokenName . "<br/>ToolTip: - " . $f -> ToolTip; ?>" name="name_<?php echo $f -> AtulFlexFieldID; ?>" id="name_<?php echo $f -> AtulFlexFieldID; ?>" isparameter=<?php echo (int)$isparameter;?> class="flexfieldname ffinput" value="<?php echo $f -> FriendlyName; ?>"  tokenname="<?php echo $f -> TokenName; ?>"/>
+									<span class="ffinput" >Required:</span>
+									<input type="checkbox"  <?php echo $paramReadonly; ?> name="req_<?php echo $f -> AtulFlexFieldID; ?>" id="req_<?php echo $f -> AtulFlexFieldID; ?>" class="flexfieldreq ffinput" <?php echo $checked; ?>>
+									<input type="image" class="btnDel ffinput" id="btnDel_<?php echo $f -> AtulFlexFieldID; ?>" <?php echo $hiddenDelete; ?> title="Remove Flex Field" src="/img/delete.png" />
+									<br/>
+									<span class="ffinput" >Default Value:</span>
+									<textarea class="flexdefault ffinput" id="def_<?php echo $f -> AtulFlexFieldID; ?>" rows="2" cols="15"><?php echo $f -> DefaultTokenValue; ?></textarea>
+									
+								</div>
+							</li>
+					<?php 
+						endforeach;
+					endif;
+					?>
+					<div id="ffbuttons">
+						<input type="image" id="btnAdd" src="/img/add.png" title="Add FlexField"/>
+						<input type="image" id="tokenlist" src="/img/token.png" class="tokenlist" title="Token List"/>
+					</div>
+				</fieldset>
+			</div>
+			
+			<h3><a href="#">Import a New Notification Provider</a></h3>
+			<div id="newNotificationProvider">
+				<?php echo $this -> getProvidersFromEndpoint('SubProcessAccordion'); ?>
+				<input type="hidden" id="notificationproviderClass" name="notificationproviderClass" value="1" />
+			</div>
+			-->
+		</div>
+		<input type="hidden" id="classid" name="" value="2">
+		<input type="hidden" id="proid" name="" value="<?php echo $this -> processSubProcess -> NotificationServiceProviderID; ?>">
+		<input type="hidden" id="subProcessId" name="subProcessId" value="<?php echo $this -> subProcess -> AtulSubProcessID; ?>" />
+</form>

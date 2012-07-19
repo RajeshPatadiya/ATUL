@@ -1,0 +1,171 @@
+<!-- Copyright (c) <2012>, <Go Daddy Operating Company, LLC>
+All rights reserved.
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+    Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+    Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ -->
+<form id="activityForm" title="Edit Activity">
+	<p>
+		<div id="ActivityAccordion" class="accordion">
+			<h3><a href="#">Activity Settings</a></h3>
+			<div>
+				<fieldset>
+					<label for="activitySummary">Summary:
+						<input type="text" class="input longinput" id="activitySummary" name="activitySummary" value="<?php
+						if (isset($this -> activity -> ActivitySummary)) : echo $this -> activity -> ActivitySummary;
+						endif;
+						?>" />
+					</label>
+					<label for="activityDeadline">Deadline:
+						<input type="text" class="input number" id="activityDeadline" name="activityDeadline" value="<?php
+						if (isset($this -> processActivity -> DeadlineOffset)) :echo $this -> processActivity -> DeadlineOffset;
+						endif;
+						?>" />
+					</label>
+					<label for="activityDeadlineType">Deadline Type:
+						<select class="input" id="activityDeadlineType" name="activityDeadlineType">
+							<?php foreach ($this->deadlineTypeList as $deadlineType):?>
+								<option value="<?php if (isset($deadlineType -> AtulDeadlineTypeID)): echo $deadlineType -> AtulDeadlineTypeID;?>" <?php endif;?>
+							<?php if ((isset($deadlineType->AtulDeadlineTypeID)&&isset($this->processActivity->AtulDeadlineTypeID))&&($deadlineType->AtulDeadlineTypeID == $this->processActivity->AtulDeadlineTypeID)): ?> selected="selected" <?php endif;?>>
+								<?php if (isset($deadlineType -> DeadlineName)): echo $deadlineType -> DeadlineName;?><?php endif;?></option>
+							<?php endforeach;?>
+						</select>
+					</label>
+					<label for="activityMissedWhenExceeded">Fail when Deadline Exceeded:
+						<input type="checkbox" class="input" id="activityMissedWhenExceeded" name="activityMissedWhenExceeded"
+						<?php if (isset($this->processActivity->
+						DeadlineResultsInMissed)&&$this->processActivity->
+						DeadlineResultsInMissed == "True"): ?>
+						checked="checked" <?php endif;?>
+						/>
+					</label>
+					<label for="activityDescription">Description:
+						<textarea class="input" id="activityDescription" name="activityDescription"><?php
+						if (isset($this -> activity -> ActivityDescription)) :echo $this -> activity -> ActivityDescription;
+						endif;
+						?></textarea>
+					</label>
+					<label for="activityProcedure">Procedure:
+						<textarea class="input" id="activityProcedure" name="activityProcedure"><?php
+						if (isset($this -> activity -> ActivityProcedure)) :echo $this -> activity -> ActivityProcedure;
+						endif;
+						?></textarea>
+					</label>
+				</fieldset>
+			</div>
+			<!--
+			<h3><a href="#">Provider</a></h3>
+			<div id="providerSelectContainer">
+				<fieldset>
+					<legend>
+						Select Provider
+					</legend>
+					<label for="provider" class="providerlist">Provider:
+						<select id="provider">
+							<option value="0" title="" class="input" selected>---</option>
+							<?php
+								$selected="";
+								foreach ($this->providers as $p) :
+									if($p->AtulServiceProviderClassID == 3):
+										if((isset($p -> AtulServiceProviderID)&&isset($this -> processActivity -> AutomationServiceProviderID))&&($p -> AtulServiceProviderID === $this -> processActivity -> AutomationServiceProviderID)):
+											$selected="selected";
+										endif;
+										?>
+											<option value="<?php print $p -> AtulServiceProviderID;?>" title="<?php print $p -> ServiceProviderDescription;?>" class="input" <?php echo $selected?>><?php print $p -> ServiceProviderName;?></option>
+										<?php
+										$selected = "";
+									endif;
+								endforeach;
+							?>
+						</select>
+					</label>
+				</fieldset>
+			</div>
+			<h3><a href="#">Add Automation Provider</a></h3>
+			<div id="newautomationProvider">
+				<?php echo $this -> getProvidersFromEndpoint('ActivityAccordion');?>
+				<input type="hidden" id="providerClass" name="providerClass" value="3" />
+			</div>
+			
+			
+			<h3><a href="#">Activity Fields</a></h3>
+			<div id="FlexfieldContainer">
+				<fieldset id="FlexFieldFieldSet">
+					<div>
+						<input type="image" id="tokenlist" class="tokenlist" src="/img/token.png" title="Token List"/>
+					</div>
+					<?php 
+					$flexfieldhelp = "Flex Fields are user or system defined fields that can be populated with output from automation, set with user values or any other arbitrary data.";
+					?>
+					<div id="inputclone" style="display: none;" class="flexfieldContainer ffinput flexfieldContainernew">
+						<span class="ffinput" >Name:</span><span class="helptext"></span>
+						<input type="text" name="flexfieldclone" id="flexfieldclone" isparameter=0 class="flexfieldname ffinput" />
+						<span class="ffinput" >Required:</span>
+						<input type="checkbox" class="flexreq ffinput" name="flexfieldreqclone" id="flexfieldreqclone">
+						<span class="ffinput" >Default Value:</span>
+						<textarea class="flexdefault ffinput" id="ffdefaultvalueclone" rows="2" cols="15"></textarea>
+						<input type="image" class="btnDel ffinput" id="btnDel_inputclone" title="Remove Flex Field" src="/img/delete.png" />
+					</div>
+					<?php
+
+//print out the existing fields
+if (isset($this -> flexfields -> FlexFields)) :
+error_log("\n\n\n***\tExisting FlexFields: " . print_r($this -> flexfields, true) . "\n", 3, "C:\Windows\Logs\php_error.log");
+foreach ($this -> flexfields->FlexFields as $f) :
+$checked = "";
+$isparamclass = "";
+$isparameter = false;
+$parameterfield = "Parameters can use tokens(existing flexfields) for dynamic values. Click the token symbol for a token list. When using tokens, insure they are wrapped with @ i.e. @mytoken@";
+
+$tooltip = "";
+if(strtolower($f -> IsParameter) == "true"):  $isparameter = true; $isparamclass = "isparam"; $tooltip=$parameterfield; $f -> ToolTip = "Provider Parameter";
+else:
+$tooltip = $flexfieldhelp;
+endif;
+error_log("\n\t***\tIsParameter: " . $f -> IsParameter. " | ". (int)$isparameter . "\n", 3, "C:\Windows\Logs\php_error.log");
+if (strtolower($f -> IsRequired) == "true") :  $checked = "checked=checked";
+endif;
+					?>
+					<li class="FlexFieldContainerLi" >
+						<div id="div_<?php echo $f -> AtulFlexFieldID;?>" style="display:inline-block;" class="flexfieldContainer ffinput <?php echo $isparamclass;?>">
+							<span class="ffinput" >Name:</span><span class="helptext" title="<?php echo $tooltip;?>"></span>
+							<input type="text" tooltip="<?php echo $f -> ToolTip;?>" title="<?php echo "Token Name: " . $f -> TokenName . "<br/>ToolTip: " . $f -> ToolTip;?>" name="name_<?php echo $f -> AtulFlexFieldID;?>" id="name_<?php echo $f -> AtulFlexFieldID;?>" isparameter=<?php echo (int)$isparameter;?> class="flexfieldname ffinput" value="<?php echo $f -> FriendlyName;?>"  tokenname="<?php echo $f -> TokenName;?>"/>
+							<span class="ffinput" >Required:</span>
+							<input type="checkbox" name="req_<?php echo $f -> AtulFlexFieldID;?>" id="req_<?php echo $f -> AtulFlexFieldID;?>" class="flexfieldreq ffinput" <?php echo $checked;?>>
+							<span class="ffinput" >Default Value:</span>
+							<textarea class="flexdefault ffinput" id="def_<?php echo $f -> AtulFlexFieldID;?>" rows="2" cols="15"><?php echo $f -> DefaultTokenValue;?></textarea>
+							<input type="image" class="btnDel ffinput" id="btnDel_<?php echo $f -> AtulFlexFieldID;?>" title="Remove Flex Field" src="/img/delete.png" />
+						</div>
+					</li>
+					<?php endforeach;?>
+					<?php
+					endif;
+					?>
+					<div id="ffbuttons">
+						<input type="image" id="btnAdd" src="/img/add.png" title="Add FlexField"/>
+						<input type="image" id="tokenlist" class="tokenlist" src="/img/token.png" title="Token List"/>
+					</div>
+				</fieldset>
+			</div>
+			-->
+		</div>
+		<input type="hidden" id="classid" name="" value="2">
+		<input type="hidden" id="proid" name="" value="<?php
+		if (isset($this -> processActivity -> AutomationServiceProviderID)) :echo $this -> processActivity -> AutomationServiceProviderID;
+		endif;
+		?>">
+		<input type="hidden" id="activitySort" name="activitySort" value="<?php echo $this -> activity -> AtulActivitySortOrder;?>" />
+		<input type="hidden" id="activityId" name="activityId" value="<?php echo $this -> activity -> AtulActivityID;?>" />
+		<input type="hidden" id="activitySubProcessId" name="activitySubProcessId" value="<?php echo $this -> activity -> AtulSubProcessID;?>" />
+		<input type="hidden" id="activityProcessActivityId" name="activityProcessActivityId" value="<?php
+		if (isset($this -> processActivity -> AtulProcessActivityID)) :echo $this -> processActivity -> AtulProcessActivityID;
+		endif;
+		?>" />
+		<input type="hidden" id="activityProviderId" name="activityProviderId" value="<?php
+		if (isset($this -> processActivity -> AutomationServiceProviderID)) :echo $this -> processActivity -> AutomationServiceProviderID;
+		endif;
+		?>" />
+</form>

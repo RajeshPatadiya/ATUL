@@ -1,0 +1,92 @@
+****
+Copyright (c) <2012>, <Go Daddy Operating Company, LLC>
+All rights reserved.
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+    Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+    Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+****
+
+Brief:
+Setting up site, make sure IIS 7 is used, and Rewrite plugin is installed.  Document root is 
+Atul/public folder -- not Atul root folder.  Rewrite rules are included in source in web.config,
+so defining those in the IIS settings should not be necessary.  If you need to manually to 
+set those up, however, simply redirect all (non-existing file) calls to Atul/public/index.php. 
+
+Site architecture uses Zend framework, taking advantage of url rewriting and new PHP
+version features.  Use controller name to organize and separate files. (/css/admin/file.css)
+
+Auth using Ldap, caching via Wincache or APC, User and Utility classes commonly used.  View 
+helpers are now under /application/views/helpers.
+
+We have a docs folder for storing standard documentation for site setup and complicated procedures, 
+as well as tests folder for storing unit tests to be run using PHPUnit (will need further 
+bootstrapping for unit testing).
+
+All data and information calls (except for initial User lookup) are piped through API.  
+
+File System:
+
+Atul:
+	/application
+		/controllers
+		/layouts
+			/scripts
+				footer.phtml
+				header.phtml
+				layout.phtml
+		/models
+			/DataManager
+			...
+		/views
+			/helpers
+				LoggedInUser.php
+			/scripts
+				/index
+					index.phtml
+					...
+				/error
+					index.phtml
+		Bootstrap.php
+		config.ini
+		
+	/public
+		/css
+			/jquery
+				/[theme name]
+					/images
+						...
+					jquery-ui-1.8.16.custom.css
+			/[controller name]
+				[activity name].css
+			/[controller name]
+				/[group namespace]
+					[activity name].css
+			site.css
+		/img
+			...
+		/js
+			/jquery
+				jquery-1.6.4.min.js
+				jquery-ui-1.8.16.custom.min.js
+				jquery.tooltip.min.js
+			/[controller name]
+				[activity name].js
+			/[controller name]
+				/[group namespace]
+					[activity name].js
+			common.js
+		index.php
+		web.config
+	
+	/tests
+	
+	/docs
+		architecture.txt
+	/library
+		/Zend
+			...
+		/Atul
+			...

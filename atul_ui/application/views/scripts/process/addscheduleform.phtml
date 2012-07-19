@@ -1,0 +1,58 @@
+<!-- Copyright (c) <2012>, <Go Daddy Operating Company, LLC>
+All rights reserved.
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+    Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+    Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ -->
+<div id="addScheduleForm" title="Add Schedule:">
+	<fieldset>
+		<label for="scheduleStartDate">Start On:
+			<input type="text" id="scheduleStartDate" name="scheduleStartDate" class="input" />
+		</label>
+		<label for="scheduleRepeats">Repeat?:
+			<select id="scheduleRepeats" class="input">
+				<option value="none">None</option>
+				<option value="daily">Weekdays</option>
+				<option value="weekly">Weekly</option>
+				<option value="biweekly">Bi-Weekly</option>
+				<option value="days">Specific Days</option>
+				<option value="dates">Specific Dates</option>
+				<option value="xweeks">Every x Weeks</option>
+				<option value="xmonths">Every x Months</option>
+			</select>
+		</label>
+		<span id="scheduleExtra" class="break">
+			
+		</span>
+		<label for="scheduleStartTime" class="break">Run Times:
+			<input type="text" class="scheduleStartTime input" />
+			<span id="addTime">
+			<img src="/img/add.png" />Add Time</span>
+		</label>
+		<label for="scheduleOwners" class="break">Owners:
+			<select id="scheduleOwners" multiple="multiple" title="Choose Owners" class="input">
+				<optgroup label="Users">
+					<?php foreach($this->userList as $u): ?>
+					<option value="<?php echo $u['AtulUserID']; ?>"><?php echo $u['DisplayName']; ?></option>
+					<?php endforeach; ?>
+				</optgroup>
+				<optgroup label="My Groups">
+					<?php foreach($this->user->getGroups() as $ug): ?>
+					<option value="<?php echo $ug['AtulUserID']; ?>"><?php echo $ug['DisplayName']; ?></option>
+					<?php endforeach; ?>
+				</optgroup>
+				<optgroup label="Other Groups">
+					<?php foreach($this->groupList as $g): ?>
+					<?php if (!$this->user->hasGroupID($g['AtulUserID'])): ?>
+					<option value="<?php echo $g['AtulUserID']; ?>"><?php echo $g['DisplayName']; ?></option>
+					<?php endif; ?>
+					<?php endforeach; ?>
+				</optgroup>
+			</select>
+		</label>
+		<input type="hidden" id="scheduleProcessId" value="<?php echo $this->processId; ?>" />
+	</fieldset>
+</div>

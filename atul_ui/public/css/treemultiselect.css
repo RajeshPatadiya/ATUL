@@ -1,0 +1,104 @@
+@CHARSET "ISO-8859-1";
+/*
+Copyright (c) <2012>, <Go Daddy Operating Company, LLC>
+All rights reserved.
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+    Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+    Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+/*	Don't mess with this file if you can avoid it.
+ A lot of the tree multi-select functionality depends on this css */
+ul.treemultimenu {
+	padding-left: 10px;
+	margin-left: 0px;
+}
+
+div.treemultiselectulcontainer {
+	border: 2px inset gray;
+	overflow-y: auto;
+}
+
+ul.border {
+	padding-left: 4px;
+	padding-right: 4px;
+}
+
+li.treemultimenu {
+	padding-left: 8px;
+	list-style: none;
+	display: none;
+	cursor: default;
+	white-space: nowrap;
+}
+
+li.visible {
+	display: block;
+	*display: inline;
+}
+
+li.haschildren {
+	padding-left: 8px;
+	background-image: url("/img/fplus.gif");
+	background-repeat: no-repeat;
+	background-position: 1px 2px;
+}
+
+span.checkbox {
+	background-repeat: no-repeat;
+	float: right;
+	width: 12px;
+	margin-left: 20px;
+	padding-right: 5px;
+}
+
+li[nodeID]>span.checkbox {
+	background-image: url("/img/box-unchecked.gif");
+}
+
+li[nodeID].haschildren:hover>span.checkbox {
+	background-image: url("/img/box-unchecked.gif");
+}
+
+li[nodeID]:hover>span.checkbox,li[nodeID].haschildren>span.checkbox:hover
+	{
+	background-image: url("/img/box-checked-gray.gif");
+}
+
+li.selected.haschildren:hover>span.checkbox,li.selected:hover>span.checkbox
+	{
+	background-image: url("/img/box-checked.gif");
+}
+
+li.visiblechildren {
+	padding-left: 8px;
+	background-image: url("/img/fminus.gif");
+	background-repeat: no-repeat;
+	background-position: 1px 2px;
+}
+
+li.selected {
+	display: block;
+	*display: inline;
+}
+
+li.selected>span.checkbox {
+	background-image: url("/img/box-checked.gif");
+}
+
+li.selecteddescentants {
+	display: block;
+	*display: inline;
+}
+
+li.filter,li.filter.visiblechildren>ul>li {
+	display: block;
+	*display: inline;
+}
+
+li.unfilter {
+	display: none;
+}

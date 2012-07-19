@@ -1,0 +1,163 @@
+@CHARSET "ISO-8859-1";
+/*
+Copyright (c) <2012>, <Go Daddy Operating Company, LLC>
+All rights reserved.
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+    Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+    Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+div#process_wizard {
+	float: none;
+	margin: 0 auto;
+}
+
+div#process_wizard div.content {
+	margin: 0;
+}
+
+body div#process ul.anchor li a.done {
+	background-color: #478606;
+}
+
+div.stepContainer input, div.stepContainer select, div.stepContainer textarea {
+	margin-left: .3em;
+}
+
+div.wizardFormInput {
+	float: left;
+	padding: .25em;
+	margin: .25em;
+}
+
+div.wizardFormTextBox {
+	clear: both;
+	padding: .25em;
+	margin: .25em;
+	padding-top: 20px;
+	margin-top: 20px;
+	border-top: 1px solid #ccc;
+}
+
+.wizardFormTextBoxSmall {
+	width: 40%;
+	float: left;
+	margin: .25em;
+	padding: .25em;
+}
+
+div.wizardFormInput label, div.wizardFormTextBox label, div.wizardFormTextBoxSmall label {
+	margin-bottom: 3px;
+	display: block;
+	clear: all;
+	display: block;
+}
+
+div.wizardFormInput input {
+	
+}
+
+div.wizardFormLine {
+	width: 100%;
+	clear: both;
+	margin-bottom: 20px;
+}
+
+#process_wizard button {
+	background-color: #5A5655;
+	border: 1px solid #5A5655;
+	border-radius: 5px 5px 5px 5px;
+	color: #FFFFFF;
+	display: block;
+	font: bold 13px Verdana, Arial, Helvetica, sans-serif;
+	margin: 5px 3px 0;
+	outline-style: none;
+	padding: 5px;
+	text-align: center;
+	text-decoration: none;
+}
+
+div#step-2 button#addSubProcess,div#step-3 button.addActivity {
+	padding: 2px;
+}
+
+button#addSubProcess:hover,button.addActivity:hover {
+	cursor: pointer;
+	background: #ccc;
+}
+
+div.wizardFormTextBox textarea {
+	width: 60em;
+	min-height: 8em;
+}
+
+.wizardFormTextBoxSmall textarea {
+	width: 30em;
+	min-height: 5em;
+}
+
+#subProcesses li {
+	background: #eee;
+	margin: 5px;
+	border: 1px solid #ccc;
+}
+
+#activitiesSubProcesses li {
+	margin: 5px;
+	border: 1px solid #ccc;
+}
+
+span.delete {
+	float: right;
+	width: 16px;
+	height: 16px;
+	display: inline;
+	background: url('/img/delete.png') no-repeat center center;
+}
+
+.invalid {
+	border: 1px solid red;
+}
+
+#subProcesses li h2,#activitiesSubProcesses li h2 {
+	padding: 5px;
+}
+
+#subProcesses li h2.expanded,#activitiesSubProcesses  li h2.expanded {
+	background: #CCFC88 url('/img/minus.gif') 3px 6px no-repeat;
+	padding-left: 15px;
+}
+
+#subProcesses li h2.collapsed,#activitiesSubProcesses  li h2.collapsed {
+	background: #CCFC88 url('/img/expand.gif') 3px 6px no-repeat;
+	padding-left: 15px;
+}
+
+#subProcesses li h2:hover,#activitiesSubProcesses li h2:hover {
+	cursor: pointer;
+}
+
+#activitiesSubProcesses li ul.activities li h2.expanded,#activitiesSubProcesses li ul.activities li h2.collapsed {
+	background-color: #F79D59;
+}
+.ui-autocomplete {
+		max-height: 100px;
+		overflow-y: auto;
+		/* prevent horizontal scrollbar */
+		overflow-x: hidden;
+		/* add padding to account for vertical scrollbar */
+		padding-right: 20px;
+	}
+	/* IE 6 doesn't support max-height
+	 * we use height instead, but this forces the menu to always be this tall
+	 */
+	* html .ui-autocomplete {
+		height: 100px;
+	}
+span#prefixMsg {
+    color: orange;
+    font-style: italic;
+    margin-left:10px;
+}
