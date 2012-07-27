@@ -1,7 +1,7 @@
 ATUL
 ====
 
-A PHP client for Go Daddy&reg; REST APIs.
+A PHP/.net Process modeling, workflow, and automation application.
 
 (borrowed some text for markdown syntax examples while this is being written)
 
