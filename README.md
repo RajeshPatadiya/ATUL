@@ -1,9 +1,9 @@
-ATUL
+ATUL - process modeling, workflow, and automation
 ====
 
-A PHP/.net Process modeling, workflow, and automation application.
-
-(borrowed some text for markdown syntax examples while this is being written)
+Checklists and Automation OH MY!
+ 
+Checklists reduce errors and increase productivity.  Just ask Atul Gawande, author of The Checklist Manifesto.  Inspired by his book, we've built 'a tool' called ATUL (Accuracy Through the Use of Lists).  
 
 Requirements
 ---------
@@ -28,6 +28,6 @@ Thing 1:
 Thing 2:
 ```php
 <?php
-// PHP source code example
+  die('source code example');
 ?>
 ```
