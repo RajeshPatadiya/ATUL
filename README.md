@@ -12,6 +12,7 @@ Requirements
 * .net 4.0 runtimes
 * An MSSQL database
 
+<!--
 Getting Started
 --------
 Here's where we write how to get started
@@ -31,3 +32,5 @@ Thing 2:
   die('source code example');
 ?>
 ```
+
+-->
